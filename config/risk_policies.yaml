@@ -1,0 +1,26 @@
+version: 1
+# Decision preferences/limits for triage only. They are not predictions or guaranteed investment recommendations.
+medium_term:
+  min_observations: 252
+  lookback_returns: 252
+  sortino_mar_annual: 0.0
+  purpose: Medium-term screening over the latest 252 daily returns; 60-day metrics are shorter subwindows.
+  checks:
+    - {metric: volatility_252, limit: 0.35, direction: max, hard: false, description: Annualized volatility preference is below 35%.}
+    - {metric: beta_252, limit: 1.5, direction: max, hard: false, description: Benchmark beta preference is below 1.5.}
+    - {metric: drawdown, limit: -0.30, direction: min, hard: false, description: Historical maximum drawdown preference is better than -30%.}
+    - {metric: sharpe, limit: 0.75, direction: min, hard: false, description: Sharpe preference is above 0.75.}
+    - {metric: sortino, limit: 1.0, direction: min, hard: false, description: Sortino preference is above 1.0.}
+    - {metric: cvar95, limit: 0.08, direction: max, hard: true, description: Critical one-day 95% expected shortfall ceiling.}
+short_term:
+  min_observations: 60
+  lookback_returns: 60
+  sortino_mar_annual: 0.0
+  purpose: Short-term screening over the latest 60 daily returns; 20-day metrics are shorter subwindows.
+  checks:
+    - {metric: volatility_20, limit: 0.50, direction: max, hard: false, description: 20-day annualized volatility preference is below 50%.}
+    - {metric: beta_60, limit: 2.0, direction: max, hard: false, description: 60-day beta preference is below 2.0.}
+    - {metric: var95, limit: 0.08, direction: max, hard: true, description: Critical one-day 95% VaR ceiling.}
+    - {metric: cvar95, limit: 0.12, direction: max, hard: true, description: Critical one-day 95% expected shortfall ceiling.}
+    - {metric: drawdown, limit: -0.25, direction: min, hard: false, description: Historical drawdown preference is better than -25%.}
+    - {metric: sharpe, limit: 0.50, direction: min, hard: false, description: Sharpe preference is above 0.50.}

@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: rad-equity-risk
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    # Public Streamlit health endpoint. FastAPI stays private on container loopback.
+    healthCheckPath: /_stcore/health
+    envVars:
+      - key: FRED_API_KEY
+        sync: false
